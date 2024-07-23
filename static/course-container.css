@@ -1,0 +1,267 @@
+.flex {
+    display: flex; /* Use flexbox for layout */
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 5px;
+    padding-top: 10px;
+}
+
+.side-bar {
+    width: 20%; /* Adjust the width to 20% */
+    background-color: #0080ff; /* Blue background */
+    color: white; /* White text color */
+    border-radius: 5px; /* Rounded corners */
+    padding: 20px; /* Add padding for content */
+    box-sizing: border-box; /* Include padding in the width calculation */
+    height: 100%;
+}
+
+.content-section {
+    flex: 1; /* Flexible width for main content */
+    margin-right: 20px; /* Add space between sections */
+}
+
+::-webkit-calendar-picker-indicator{
+    background-color: #ffffff;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.file-name{
+    color: #721c24;
+}
+
+.file-name:hover {
+    text-decoration: underline;
+    text-decoration-color: #721c24;
+    text-underline-offset: 0.2em; /* Offset of the underline from the text */
+}
+
+.course-container h1 {
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.course-container {
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5px;
+    min-height: 84.7vh;
+}
+
+
+.items-to-display {
+    border: 1px solid #0080ff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-width: .2px;
+}
+
+
+.content-list, .item-list, .events-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.content-item, .event-item {
+    margin-bottom: 20px;
+}
+
+.file-icon {
+    margin-right: 10px;
+    color: white;
+    background-color: #0080ff;
+    border-radius: 5px;
+    padding: 7px; 
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px; 
+    margin-bottom: 10px; 
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+    padding: 10px;
+    border-radius: 5px; 
+    margin-bottom: 10px; 
+}
+
+#create-content-toggle {
+    cursor: pointer;
+    padding: 0;
+}
+
+/* Input field style */
+#contentTitle {
+    padding: 10px;
+    border: 1px solid #007bff; /* Blue border */
+    border-radius: 5px;
+}
+
+/* Create button style */
+.contentSubmit {
+    padding: 10px;
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contentSubmit:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+
+.toggle-button{
+    cursor: pointer;
+    padding-bottom: 10px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 6px 12px; /* Adjust the padding as needed */
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border: none;
+    border-radius: 5px;
+    height: 40px; /* Set the same height for both button and input */
+    line-height: 28px; /* Match the line height to center text vertically */
+}
+
+.custom-file-upload:hover {
+    background-color: #e9e9e9;
+}
+ 
+.fa-cloud-upload-alt{
+    color: #0080ff;
+}
+
+.add-item-form{
+    padding-bottom: 10px;
+}
+
+
+#create-content-form{
+    padding-top: 10px;
+}
+
+
+.side-bar input[type="text"],
+.side-bar button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.side-bar input[type="date"]{
+    width: 25%;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Updated CSS */
+.calendar-icon {
+    position: relative;
+}
+
+.flexi{
+    display: flex;
+}
+
+#event-title{
+    border-radius: 5px 0 0 5px; /* Keep the top-left and bottom-left border radius */
+}
+
+#event-due-date{
+    border-radius: 0 5px 5px 0; 
+}
+
+.side-bar button {
+    background-color: #fff;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.calendar-icon {
+    position: relative;
+}
+
+::-webkit-calendar-picker-indicator{
+    background-color: #ffffff;
+    padding: 3px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.calendar-icon input[type="date"] {
+    position: absolute;
+    left: -9999px;
+}
+
+input[type="date"]{
+    background-color: #0080ff;
+    padding: 2px;
+    width: 1px;
+    font-family: "Roboto Mono",monospace;
+    color: #ffffff;
+    font-size: 2px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+
+::-webkit-calendar-picker-indicator{
+    background-color: #ffffff;
+    padding: 3px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+/* Style for calendar icon */
+.calendar-label i {
+    font-size: 20px;
+    color: #007bff;
+}
+
+
+.calendar-label {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+
+*,
+*:before,
+*:after{
+    box-sizing: border-box;
+}
+
+.content-section p {
+    color: #6c757d;
+    font-style: italic; 
+}

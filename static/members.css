@@ -1,0 +1,93 @@
+/* Style for the container */
+.members-container {
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5px;
+    min-height: 84.8vh;
+}
+
+/* Style for the headings */
+h1 {
+    padding-top: 20px;
+    margin-top: 20px; /* Adjust the top margin to create space */
+}
+
+h3 {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* Style for the search input */
+#search-input {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Style for the member list */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Style for alternating background colors */
+li:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Style for total members paragraph */
+.total-members {
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+/* Style for lecturer and student sections */
+#lecturers,
+#students {
+    margin-bottom: 20px;
+}
+
+/* Style for lecturer and student headings */
+#lecturers h3,
+#students h3 {
+    font-weight: bold;
+}
+
+/* Style for lecturer and student lists */
+#lecturers ul,
+#students ul {
+    margin-top: 10px;
+}
+
+/* Style for lecturer and student list items */
+#lecturers li,
+#students li {
+    margin-bottom: 10px;
+}
+
+/* Hover effect on list items */
+li:hover {
+    background-color: #f0f0f0;
+}
+
+/* Add other CSS styles for the rest of the page */
+/* Add your other CSS styles here */
+
+.total-members {
+    background-color: #f9f9f9;
+    font-weight: bold;
+    margin-top: 10px;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+

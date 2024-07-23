@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Report 3{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='reports.css') }}">
+<div class="report-container">
+    <h1>Lecturers Teaching 3 or More Courses</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Lecturer ID</th>
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Last Name</th>
+                <th>Number of Courses</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for lecturer in lecturers %}
+            <tr>
+                <td>{{ lecturer['Lecturer ID'] }}</td>
+                <td>{{ lecturer['First Name'] }}</td>
+                <td>{{ lecturer['Middle Name'] }}</td>
+                <td>{{ lecturer['Last Name'] }}</td>
+                <td>{{ lecturer['Number of Courses'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p>Total Lecturers: {{ total_lecturers }}</p>
+</div>
+{% endblock %}

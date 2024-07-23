@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Report 5{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='reports.css') }}">
+<div class="report-container">
+    <h1>Top 10 Students with the Highest Overall Averages</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Last Name</th>
+                <th>Average</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in report_data %}
+            <tr>
+                <td>{{ student['Student ID'] }}</td>
+                <td>{{ student['First Name'] }}</td>
+                <td>{{ student['Middle Name'] }}</td>
+                <td>{{ student['Last Name'] }}</td>
+                <td>{{ student['Average'] if student['Average'] is not none else 0 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

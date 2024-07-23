@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Course Registration{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='all-courses.css') }}">
+<div class="contain">
+    <h1>Course Registration</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form id="registration-form" method="post" action="{{ url_for('register_student') }}">
+        <input type="text" class="search-input" name="course_code" placeholder="Search for a course..." required>
+        <button type="submit">Register</button>
+    </form><br>
+
+    <div id="course-list">
+        {% for course in courses %}
+            <div class="course-card" data-code="{{ course['Course Code'] }}">
+                <p class="course-title">{{ course['Title'] }}</p>
+                <div class="ccc">
+                    <p class="course-code">Course Code: {{ course['Course Code'] }}</p>
+                    <p class="course-credits">Credits: {{ course['Credits'] }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="total-courses">
+        <p>Total Courses: {{ num_courses }}</p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var searchInput = document.getElementsByClassName("search-input")[0];
+
+        // Add event listener for course cards
+        var courseCards = document.querySelectorAll(".course-card");
+        courseCards.forEach(function(card) {
+            card.addEventListener("click", function() {
+                var courseCode = card.dataset.code;
+                searchInput.value = courseCode; // Set the value of the search input to the course code
+            });
+        });
+
+        // Add event listener for input field to filter course cards
+        searchInput.addEventListener("input", function() {
+            var searchTerms = searchInput.value.toLowerCase().split(" ");
+
+            // Get all course cards
+            var courseCards = document.querySelectorAll(".course-card");
+
+            // Loop through each course card
+            courseCards.forEach(function(card) {
+                var courseData = card.textContent.toLowerCase();
+                var matchesAllTerms = true;
+
+                // Check if the card contains all search terms
+                searchTerms.forEach(function(term) {
+                    if (!courseData.includes(term)) {
+                        matchesAllTerms = false;
+                    }
+                });
+
+                // Show or hide the card based on search results
+                if (matchesAllTerms) {
+                    card.style.display = "block"; // Show the card
+                } else {
+                    card.style.display = "none"; // Hide the card
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='header.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+</head>
+<body>
+    <div class="head">
+        <nav>
+            <div class="logo-container" >
+                <a href="{% if user_type == 'Admin' %}{{ url_for('admin_home') }}
+                {% elif user_type == 'Lecturer' %}{{ url_for('lecturer_home') }}
+                {% elif user_type == 'Student' %}{{ url_for('student_home') }}
+                {% endif %}">School Website</a>
+                <a href="{% if user_type == 'Admin' %}{{ url_for('admin_home') }}
+                    {% elif user_type == 'Lecturer' %}{{ url_for('lecturer_home') }}
+                    {% elif user_type == 'Student' %}{{ url_for('student_home') }}
+                    {% endif %}">Home
+                </a>
+            </div>
+            <div class="header-right">
+                {% if user_type == 'Student' %}
+                    <a href="{{ url_for('register_student') }}">
+                        <i class="fas fa-graduation-cap"></i><span class="link-text">Register</span>
+                    </a>
+                {% endif %}
+                <a href="{{ url_for('logout') }}">
+                    <i class="fas fa-sign-out-alt"></i><span class="logout">Logout</span>
+                </a>
+            </div>            
+        </nav>
+    </div>
+</body>
+</html>

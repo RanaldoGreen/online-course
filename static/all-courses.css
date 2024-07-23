@@ -1,0 +1,118 @@
+.contain{
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5px;
+}
+
+.contain h1 {
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+/* Style for each course card */
+.course-card {
+    background-color: #fff; /* Updated background color */
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
+    cursor:pointer;
+}
+
+.course-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Hover effect - elevates the card */
+}
+
+.course-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333; /* Updated title color */
+}
+
+.course-code,
+.course-credits {
+    color: #777; /* Updated secondary text color */
+}
+
+.ccc {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.search-input {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px 0 0 5px; /* Keep the top-left and bottom-left border radius */
+    border: 1px solid #ccc;
+    width: calc(100% - 100px);
+    box-sizing: border-box;
+    flex: 1;
+    margin: 0; /* Reset margin */
+    height: 40px;
+}
+
+#search-input{
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+}
+
+.total-courses {
+    background-color: #f9f9f9;
+    font-weight: bold;
+    margin-top: 10px;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+
+
+#registration-form {
+    display: flex;
+    align-items: center;
+}
+
+
+
+#search-input:focus {
+    outline-color: #007bff; /* Change outline color to blue */
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0; /* Keep the top-right and bottom-right border radius */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    height: 40px;
+}
+
+button[type="submit"]:hover {
+    background-color: #1b6fc8;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px; 
+    margin-bottom: 10px; 
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+    padding: 10px;
+    border-radius: 5px; 
+    margin-bottom: 10px; 
+}

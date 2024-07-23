@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block title %}Discussion Threads for {{ threads[0]['Forum Title'] }}{% endblock %}
+
+{% macro render_replies(reply, threads) %}
+    <ul class="reply-list">
+        {% for nested_reply in threads %}
+            {% if nested_reply['Reply ID'] == reply['Discussion ID'] %}
+                <li class="reply-item">
+                    <div class="reply-info">
+                        <p class="reply-message">{{ nested_reply['Message'] }} - <span>{{ nested_reply['Owner'] }}</span></p>
+                        <div class="reply-meta">
+                            <p class="reply-date">{{ nested_reply['Date Created'] }}</p>
+                            <div class="tin">
+                                <!-- Plus/minus icon for nested replies -->
+                                <div class="toggle-icon" onclick="toggleReplies(this)">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                                <!-- Reply icon and word for nested replies -->
+                                <div class="reply-icon">
+                                    {% if user_type == 'Lecturer' or user_type == 'Student' %}
+                                        <a class="somn" onclick="toggleReplyForm(this)"><p><i class="fas fa-reply"></i></p><p>Reply</p></a>
+                                        <div class="reply-form-container" style="display: none;">
+                                            <form class="fl" method="POST" action="{{ url_for('reply_to_thread', disc_id=nested_reply['Discussion ID']) }}">
+                                                <textarea id="reply_message" name="message" rows="2" cols="40" placeholder="Type here" required></textarea>
+                                                <button class="bt" type="submit">Post</button>
+                                            </form>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Recursive call for further nested replies -->
+                    {{ render_replies(nested_reply, threads) }}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endmacro %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='threads.css') }}">
+<div class="forum-container">
+        <div class="top">
+            <h1>{{ course[1] }}</h1>        
+            {% if user_type == 'Lecturer' or user_type == 'Student' %}
+                <a href="{{ url_for('course_container', ccode=course[0]) }}" {% if 'course-container' in request.path %} class="active" {% endif %}>Course</a>
+                <a href="{{ url_for('retrieve_members', code=course[0]) }}" {% if 'retrieve-members' in request.path %} class="active" {% endif %}>Members</a>
+                <a href="{{ url_for('forums', ccode=course[0]) }}" {% if 'forums' or 'retrieve-thread' in request.path %} class="active" {% endif %}>Forums</a>
+                <a href="{{ url_for('getGrade', cc=course[0]) }}" {% if 'grade' in request.path %} class="active" {% endif %}>Grades</a>
+            {% endif %}
+            <hr class="horizontal-line">
+        </div>
+    <p class="forum-title">Discussion Threads for {{threads[0]['Forum Title'] }}</p>
+    {% if user_type == 'Lecturer' or user_type == 'Student' %}
+    <div class="create-thread-container">
+        <div id="toggle-create-thread" class="toggle-icon"><i class="fas fa-plus"></i> Create Thread</div>
+        <div class="create-thread-form" id="create-thread-form" style="display: none;">
+            <form method="POST" action="{{ url_for('create_thread', fi=threads[0]['Forum ID']) }}">
+                <div class="input-container">
+                    <input type="text" id="title" name="title" placeholder="Title" required>
+                    <textarea id="message" name="message" rows="4" cols="40" placeholder="Message" required></textarea>
+                    <button id="ts" type="submit">Create Thread</button>
+                </div>
+            </form>                
+        </div>
+    </div>
+    {% endif %}
+    {% if threads[0]['Thread Title'] %}
+        <ul class="thread-list">
+            {% for thread in threads %}
+                {% if thread['Reply ID'] is none %}
+                    <!-- Main Thread -->
+                    <li class="thread-item">
+                        <div class="thread-info">
+                            <p class="thread-title">{{ thread['Thread Title'] }}</p>
+                            <p class="thread-message">{{ thread['Message'] }} - <span>{{ thread['Owner'] }}</span></p>
+                            <div class="thread-meta">
+                                <p class="thread-date">{{ thread['Date Created'] }}</p>
+                                <!-- Plus/minus icon for main thread -->
+                                <div class="tin">
+                                    <div class="toggle-icon" onclick="toggleReplies(this)">
+                                        <i class="fas fa-plus"></i>
+                                    </div>
+                                    <!-- Reply icon for main thread -->
+                                    <div class="reply-icon">
+                                    {% if user_type == 'Lecturer' or user_type == 'Student' %}
+                                        <a class="somn" onclick="toggleReplyForm(this)"><p><i class="fas fa-reply"></i></p><p>Reply</p></a>
+                                        <div class="reply-form-container" style="display: none;">
+                                            <form class="fl" method="POST" action="{{ url_for('reply_to_thread', disc_id=thread['Discussion ID']) }}">
+                                                <textarea id="reply_message" name="message" rows="2" cols="40" placeholder="Type here" required></textarea>
+                                                <button class="bt" type="submit">Post</button>
+                                            </form>
+                                        </div>
+                                    {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Replies -->
+                        {{ render_replies(thread, threads) }}
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="no-threads">No threads available for this forum.</p>
+    {% endif %}
+</div>
+
+<script>
+    // Function to hide all nested replies initially
+    document.addEventListener("DOMContentLoaded", function() {
+        var replyLists = document.querySelectorAll(".reply-list");
+        replyLists.forEach(function(replyList) {
+            replyList.style.display = "none";
+        });
+    });
+
+    // Function to toggle replies visibility and scroll to keep them in view
+function toggleReplies(element) {
+    var replyList = element.parentElement.parentElement.parentElement.nextElementSibling;
+    var icon = element.querySelector('i');
+
+    if (replyList.style.display === "none" || replyList.style.display === "") {
+        replyList.style.display = "block";
+        icon.classList.remove('fa-plus');
+        icon.classList.add('fa-minus');
+    } else {
+        replyList.style.display = "none";
+        icon.classList.remove('fa-minus');
+        icon.classList.add('fa-plus');
+    }
+
+    // Scroll to keep the expanded replies in view
+    var replyListRect = replyList.getBoundingClientRect();
+    var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (replyListRect.bottom > window.innerHeight) {
+        // Scroll the page to the position of the expanded replies
+        window.scrollTo({
+            top: scrollPosition + replyListRect.bottom - window.innerHeight,
+            behavior: 'smooth'
+        });
+    }
+}
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var createThreadButton = document.getElementById('toggle-create-thread');
+        var createThreadForm = document.getElementById('create-thread-form');
+        var isFormVisible = false;
+
+        createThreadButton.addEventListener('click', function() {
+            if (!isFormVisible) {
+                createThreadForm.style.display = 'block';
+                isFormVisible = true;
+            } else {
+                createThreadForm.style.display = 'none';
+                isFormVisible = false;
+            }
+        });
+    });
+    
+    // Function to toggle reply form visibility and scroll to keep it in view
+    function toggleReplyForm(element) {
+        var replyFormContainer = element.nextElementSibling;
+
+        if (replyFormContainer.style.display === 'none') {
+            replyFormContainer.style.display = 'block';
+        } else {
+            replyFormContainer.style.display = 'none';
+        }
+
+        // Scroll to keep the expanded reply form in view
+        var replyFormRect = replyFormContainer.getBoundingClientRect();
+        var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (replyFormRect.bottom > window.innerHeight) {
+            // Scroll the page to the position of the expanded reply form
+            window.scrollTo({
+                top: scrollPosition + replyFormRect.bottom - window.innerHeight,
+                behavior: 'smooth'
+            });
+        }
+    }
+
+</script>
+
+{% endblock %}

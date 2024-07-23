@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}All Lecturers{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='all-lec-stud.css') }}">
+<div class="container">
+    <h1>All Lecturers</h1>
+    
+    <input type="text" id="search-input" placeholder="Search for a lecturer...">
+    
+    <table>
+        <thead>
+            <tr>
+                <th class="table-header">Lecturer ID</th>
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Last Name</th>
+            </tr>
+        </thead>
+        <tbody id="lecturer-list">
+            {% for lecturer in lecturers %}
+                <tr class="clickable-row" data-href="{{ url_for('lecturer_detail', lid=lecturer['LecturerID']) }}">
+                    <td class="table-data">{{ lecturer['LecturerID'] }}</td>
+                    <td>{{ lecturer['FirstName'] }}</td>
+                    <td>{{ lecturer['MiddleName'] }}</td>
+                    <td>{{ lecturer['LastName'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div class="total-lecturers-row">
+        <p>Total Lecturers: {{ num_lec.Total }}</p>
+    </div>
+</div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get the input field and attach an event listener for input
+            var searchInput = document.getElementById("search-input");
+            searchInput.addEventListener("input", function() {
+                var searchTerms = searchInput.value.toLowerCase().split(" ");
+    
+                // Get all lecturer rows
+                var lecturerRows = document.querySelectorAll("#lecturer-list tr");
+    
+                // Loop through each lecturer row
+                lecturerRows.forEach(function(row) {
+                    var lecturerData = row.textContent.toLowerCase();
+                    var matchesAllTerms = true;
+    
+                    // Check if the row contains all search terms
+                    searchTerms.forEach(function(term) {
+                        if (!lecturerData.includes(term)) {
+                            matchesAllTerms = false;
+                        }
+                    });
+    
+                    // Show or hide the row based on search results
+                    if (matchesAllTerms) {
+                        row.style.display = "table-row"; // Show the row
+                    } else {
+                        row.style.display = "none"; // Hide the row
+                    }
+                });
+            });
+    
+            // Add click event listener to each lecturer row
+            var lecturerRows = document.querySelectorAll("#lecturer-list tr");
+            lecturerRows.forEach(function(row) {
+                row.addEventListener("click", function() {
+                    var url = this.getAttribute("data-href");
+                    if (url) {
+                        window.location.href = url;
+                    }
+                });
+            });
+        });
+    </script>
+    
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Lecturer Home{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='lec-stud.css') }}">
+<div class="lecbody">
+    <h1>Welcome, {{ lecturer_name }}!</h1>
+    <div class="horizontal-line"></div>
+    <div class="wrap">
+        {% for course in courses %}
+            <a href="{{ url_for('course_container', ccode=course.CourseID) }}">
+                <div class="box {{ 'box' ~ loop.index }} {{ 'shadow' ~ 1 }}">
+                    <h3>{{ course.CourseID }} 
+                        <hr>
+                        {{ course.Title }}
+                    </h3>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+    
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Course Content{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='course-container.css') }}">
+<div class="course-container">
+    <div class="top">
+        <h1>Course Content for {{ course_details['Course Name'] }}</h1>
+        <hr class="horizontal-line">
+    </div>
+    <div class="flex">
+        <div class="content-section">
+            {% if course_details['Content'] %}
+                <ul class="content-list">
+                    {% for title, items in course_details['Content'].items() %}
+                        <li class="content-item">
+                            <h4>{{ title }}</h4>
+                            <ul class="item-list">
+                                {% if items %}
+                                    {% for item in items %}
+                                        {% if item['item_id'] and item['link_filepath'] %}
+                                            <div class="items-to-display">
+                                                <li>
+                                                    <a class="file-name" href="{{ url_for('retrieve_item', item_id=item['item_id']) }}">
+                                                        <i class="file-icon fas fa-file"></i>
+                                                        <span>{{ item['link_filepath'] }}</span>
+                                                    </a>                                                
+                                                </li>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No content available.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+.lecbody {
+  background-size: cover; 
+
+  background-image: url("/static/tree.jpg");
+  padding-left: 20px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+  min-height: 84.7vh;
+}
+
+.lecbody h1 {
+  padding-top: 20px;
+  margin-top: 20px;
+  color: white;
+}
+
+.lecbody .link-text {
+  color: #721c24;
+}
+
+.lecbody .link-text:hover {
+  text-decoration: underline;
+  text-decoration-color: #721c24;
+}
+
+.box {
+  width: 30%;
+  height: 200px;
+  display: inline-block;
+  background-color: white;
+  margin: 25px 15px;
+  border-radius: 5px;
+  vertical-align: top; /* Align boxes to the top */
+  margin-bottom: 0px;
+  
+}
+
+.box h3 {
+  font-family: 'Didact Gothic', sans-serif;
+  font-weight: normal;
+  text-align: center;
+  padding-top: 50px;
+  color: #fff;
+}
+
+  .box1{
+    background-color: teal;
+  }
+  .box2{
+    background-color: rgb(86, 15, 15);
+  }
+  .box3{
+    background-color: blue;
+  }
+  .box4{
+    background-color: rgb(182, 123, 15);
+  }
+  .box5{
+    background-color: #010506;
+  }
+  .box6{
+    background-color: #394669;
+  }
+
+  .shadow1{
+    box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.1) inset;
+  }
+
+  .shadow1 h3{
+    width:87%;
+    height:100px;
+    margin-left:6%;
+    border:2px  #F7EEEE;
+    border-radius:5px;
+  }
+
+
+

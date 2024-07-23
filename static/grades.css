@@ -1,0 +1,122 @@
+.grades-container {
+    margin: 0 auto; /* Center the container horizontally */
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5px;
+    min-height: 84.7vh;
+}
+
+.grades-container h1{
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.student-assignments {
+    margin-top: 20px;
+    padding-bottom: 10px;
+}
+
+.student-section {
+    margin-bottom: 20px;
+    border: 1px solid #ccc; 
+    padding: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.assignments table {
+    width: 100%; /* Set table width to 100% of parent div */
+}
+
+.student-info {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+
+.assignments table th {
+    background-color: #f2f2f2;
+}
+
+.submit-link {
+    margin-top: 20px;
+    text-decoration: none;
+    color: #721c24;
+}
+
+.sass{
+    padding-bottom: 20px;
+}
+.submit-button {
+    margin-top: 20px;
+    text-decoration: none;
+    background-color: #7f1e28; /* Set background color */
+    color: white; /* Set text color */
+    padding: 10px 20px; /* Adjust padding as needed */
+    border: none; /* Remove default button border */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    cursor: pointer;
+    transition: background-color 0.1s; /* Add transition effect for hover */
+}
+
+.submit-button:hover {
+    background-color: #5a141c; /* Darker background color on hover */
+}
+
+.assignment-link:hover {
+    color: #721c24;
+}
+/* Styles for table when user is a student */
+.grades-container table {
+    width: 100%;
+    border-collapse: collapse; /* Collapse table borders */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a little shadow effect */
+}
+
+.grades-container th,
+.grades-container td {
+    padding: 10px; /* Add padding to table cells */
+    text-align: left;
+    width: 33%; /* Set width for each column */
+}
+
+.grades-container th {
+    background-color: #f2f2f2; /* Light gray background color for table header */
+}
+
+/* Alternate row background color */
+.grades-container tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light gray background color for even rows */
+}
+
+/* Hover effect */
+.grades-container tbody tr:hover {
+    background-color: #e9e9e9; /* Light up the row when hovered */
+}
+
+.flex{
+    display: flex;
+}
+
+#grade {
+    padding: 10px;
+    border: 1px solid #007bff; /* Blue border */
+    border-radius: 5px;
+    width: 24%;
+    border-radius: 5px 0 0 5px; /* Keep the top-right and bottom-right border radius */
+
+}
+
+#sub {
+    padding: 10px;
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0; /* Keep the top-right and bottom-right border radius */
+}
+
+#sub:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}

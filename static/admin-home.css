@@ -1,0 +1,281 @@
+.admin-home {
+    background-color: white;
+    padding-left: 20px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.links a{
+    margin-right: 1px;
+    color: #721c24; 
+}
+
+.admin-home h1 {
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+/* Custom styles for the dropdown */
+.custom-select {
+  position: relative;
+}
+
+
+
+.select-selected {
+  padding: 0px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #721c24;
+  padding-left: 0;
+}
+
+.select-selected:after {
+  content: '';
+  border: 6px solid transparent;
+  border-top-color: #666;
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 3px);
+}
+
+.select-selected span {
+  margin-right: 12px;
+}
+
+/* Style the dropdown content */
+.select-items {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  z-index: 1;
+  width: 100%; /* Set width to match the parent */
+}
+
+.select-items div {
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+.select-items div:hover {
+  background-color: #ddd;
+  color: #721c24;
+}
+
+
+.links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.links li {
+    padding-top: 10px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.forms-container {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space items evenly */
+    padding: 20px;
+}
+
+.form-wrapper {
+    width: calc(50% - 10px); /* Adjust the width to 50% of the container */
+    margin-right: 30px; /* Add space between forms */
+}
+
+.create-course-form,
+.assign-lecturer-form {
+    outline: 1px solid #ccc; /* Add outline around the form */
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.create-course-form h2,
+.assign-lecturer-form h2 {
+    margin-top: 0;
+}
+
+.create-course-form label,
+.assign-lecturer-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333; /* Text color for form labels */
+}
+
+.create-course-form input[type="text"],
+.create-course-form input[type="number"],
+.assign-lecturer-form input[type="text"] {
+    width: 100%;
+    padding: 10px; /* Increase padding for inputs */
+    border: none; /* Remove default input border */
+    border-bottom: 1px solid #ccc; /* Add underline style */
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease; /* Smooth transition for input field border color */
+}
+
+.create-course-form input[type="text"]:focus,
+.create-course-form input[type="number"]:focus,
+.assign-lecturer-form input[type="text"]:focus {
+    border-color: #007bff; /* Change border color on focus */
+}
+
+.create-course-form .create-button a,
+.assign-lecturer-form .assign-button a {
+    color: #007bff; /* Color of the create button */
+    text-decoration: none;
+}
+
+.create-course-form .create-button a:hover,
+.assign-lecturer-form .assign-button a:hover {
+    text-decoration: underline; /* Underline effect on hover */
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px; 
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+    padding: 10px;
+    border-radius: 5px; 
+    margin-top: 10px; 
+}
+
+.create-button,
+.assign-button {
+    text-align: right;
+}
+
+.links li a:hover, .reports-section span:hover {
+    text-decoration: underline;
+    text-decoration-color: #721c24; /* Blue color */
+    text-decoration-thickness: 0.2em; /* Thickness of the underline */
+    text-underline-offset: 0.2em; /* Offset of the underline from the text */
+}
+
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-student-event-form {
+    margin-bottom: 20px;
+    width: 20%; /* Set the width of the form container */
+}
+
+.search-student-event-form h3 {
+    margin-bottom: 10px;
+}
+
+
+.search-student-event-form input[type="text"],
+.search-student-event-form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+
+.search-student-event-form input[type="date"]{
+    background-color: #0080ff;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    width: 24%;
+    font-family: "Roboto Mono",monospace;
+    color: #ffffff;
+    font-size: 16px;
+    border: none;
+    outline: none;
+}
+
+.search-student-event-form button {
+    background-color: #007bff; /* Blue background */
+    color: #fff; /* White text color */
+    cursor: pointer;
+}
+
+.search-student-event-form button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+
+.calendar-icon {
+    position: relative;
+}
+
+::-webkit-calendar-picker-indicator{
+    background-color: #ffffff;
+    padding: 3px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.calendar-icon input[type="date"] {
+    position: absolute;
+    left: -9999px;
+}
+
+::-webkit-calendar-picker-indicator{
+    background-color: #ffffff;
+    padding: 3px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+/* Style for calendar icon */
+.calendar-label i {
+    font-size: 20px;
+    color: #007bff;
+}
+
+
+.calendar-label {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+*,
+*:before,
+*:after{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.flexi{
+    display: flex;
+}
+
+#student_id{
+    border-radius: 5px 0 0 5px; /* Keep the top-left and bottom-left border radius */
+}
+
+#selected_date{
+    border-radius: 0 5px 5px 0; 
+}
+
+#retrieveEventsForm{
+    padding-left: 20px;
+}
+

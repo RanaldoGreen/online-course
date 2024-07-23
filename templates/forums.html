@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Forums{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='threads.css') }}">
+<script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Font Awesome for the plus icon -->
+
+<div class="fc">
+    <div class="top">
+        <h1>{{ course[1]}}</h1>    
+        {% if user_type == 'Lecturer' or user_type == 'Student' %}
+            <a href="{{ url_for('course_container', ccode=course[0]) }}" {% if 'course-container' in request.path %} class="active" {% endif %}>Course</a>
+            <a href="{{ url_for('retrieve_members', code=course[0]) }}" {% if 'retrieve-members' in request.path %} class="active" {% endif %}>Members</a>
+            <a href="{{ url_for('forums', ccode=course[0]) }}" {% if 'forums' in request.path %} class="active" {% endif %}>Forums</a>
+            <a href="{{ url_for('getGrade', cc=course[0]) }}" {% if 'grade' in request.path %} class="active" {% endif %}>Grades</a>
+        {% endif %}
+        <hr class="horizontal-line">
+    </div>
+    <h2>Forums</h2>
+    {% if user_type == 'Lecturer' %}
+        <div id="toggle-create-forum" class="toggle-create-forum"><i class="fas fa-plus"></i> Create Forum</div>
+        <div class="create-forum-container">
+            <div class="create-forum-form" id="create-forum-form" style="display: none;">
+                <form id="create-forum-form" action="{{ url_for('create_forum', cc=course[0]) }}" method="POST">
+                    <input type="text" id="forumName" name="forumName" placeholder="Forum Name" required>
+                    <textarea id="description" name="description" placeholder="Description" required></textarea>
+                    <button id="forumSubmit" type="submit">Create Forum</button>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+    {% if no_forums %}
+        <p class="no-threads">No forums available for {{ course[1] }}</p>
+    {% else %}
+        {% if forums %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Forum Name</th>
+                        <th>Description</th>
+                        <th>Discussions</th>
+                        <th>Date Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for forum in forums %}
+                        <tr>
+                            <div class="forum-title"><td><a class="forum-link" href="{{ url_for('retrieve_thread', fi=forum[1]) }}"><strong>{{ forum[2] }}</strong></a></td></div>
+                            <td>{{ forum[3] }}</td>
+                            <td>{{ forum[4] }}</td>
+                            <td>{{ forum[5] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="no-threads">No forums available</p>
+        {% endif %}
+    {% endif %}
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var createForumButton = document.getElementById('toggle-create-forum');
+        var createForumForm = document.getElementById('create-forum-form');
+        var isFormVisible = false; // Variable to track form visibility state
+
+        createForumButton.addEventListener('click', function() {
+            if (!isFormVisible) {
+                createForumForm.style.display = 'block';
+                isFormVisible = true;
+            } else {
+                createForumForm.style.display = 'none';
+                isFormVisible = false;
+            }
+        });
+    });
+</script>
+{% endblock %}

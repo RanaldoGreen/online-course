@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}Course Container{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='course-container.css') }}">
+<div class="course-container">
+    <div class="top">
+        <h1>{{ course_details['Course Name'] }}</h1>    
+        <a href="{{ url_for('course_container', ccode=course_details['Course Code']) }}" {% if 'course-container' in request.path %} class="active" {% endif %}>Course</a>
+        <a href="{{ url_for('retrieve_members', code=course_details['Course Code']) }}" {% if 'retrieve-members' in request.path %} class="active" {% endif %}>Members</a>
+        <a href="{{ url_for('forums', ccode=course_details['Course Code']) }}" {% if 'forums' in request.path %} class="active" {% endif %}>Forums</a>
+        <a href="{{ url_for('getGrade', cc=course_details['Course Code']) }}" {% if 'grade' in request.path %} class="active" {% endif %}>Grades</a>
+        <hr class="horizontal-line">
+    </div>
+   <div class="flex">
+        <div class="content-section">
+            {% if user_type == 'Lecturer' %}
+                <div id="create-content-toggle" class="toggle-button">
+                    <i class="fas fa-plus"></i> Create Content
+                </div>
+                <form id="create-content-form" action="{{ url_for('createContent', cc=course_details['Course Code']) }}" method="POST" style="display: none;">
+                    <input type="text" id="contentTitle" name="contentTitle" placeholder="Content Title" required>
+                    <button type="submit" class="contentSubmit">Create Content</button>
+                </form>
+            {% endif %}
+            {% if course_details['Content'] %}
+                <ul class="content-list">
+                    {% for title, items in course_details['Content'].items() %}
+                        <li class="content-item">
+                            <h3>{{ title }}</h3>
+                            {% if user_type == 'Lecturer' %}
+                                <div class="toggle-button" id="addItemButton{{ loop.index }}">
+                                    <i class="fas fa-plus"></i>Add Item
+                                </div>
+                                <form class="add-item-form" id="addItemForm{{ loop.index }}" action="{{ url_for('createItem', cc=course_details['Course Code'], cid=items[0]['cont_id']) }}" method="POST" enctype="multipart/form-data" style="display: none;">
+                                    <label for="file{{ loop.index }}" class="custom-file-upload">
+                                        <i class="fas fa-cloud-upload-alt"></i> Choose File
+                                    </label>
+                                    <input type="file" name="file" id="file{{ loop.index }}" required>
+                                    <button type="submit" class="contentSubmit">Upload File</button>
+                                </form>                                                          
+                            {% endif %}
+                            <ul class="item-list">  
+                                {% if items %}
+                                    {% for item in items %}
+                                        {% if item['item_id'] and item['link_filepath'] %}
+                                            <div class="items-to-display">
+                                                <li>
+                                                    <a class="file-name" href="{{ url_for('retrieve_item', item_id=item['item_id']) }}">
+                                                        <i class="file-icon fas fa-file"></i>
+                                                        <span>{{ item['link_filepath'] }}</span>
+                                                    </a>
+                                                </li>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No content available.</p>
+            {% endif %}
+        </div>
+        
+        <div class="events-section side-bar">
+            <h3>Calendar Events</h3>
+            {% if user_type == 'Lecturer' %}
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <form id="create-event-form" action="{{ url_for('create_event', cc=course_details['Course Code']) }}" method="post">
+                    <div class="flexi">
+                        <input type="text" id="event-title" name="title" placeholder="Event Title" required>
+                        <input type="date" id="event-due-date" name="due_date" required>
+                    </div>
+                    <button type="submit">Create Event</button>
+                </form>
+            {% endif %}
+        
+            {% if course_details['Calendar Events'] %}
+                <ul class="events-list">
+                    {% for event in course_details['Calendar Events'] %}
+                        <li class="event-item">
+                            <p><strong>{{ event['Name'] }}</strong> - {{ event['Due Date'] }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No events available.</p>
+            {% endif %}
+        </div>
+    </div> 
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        console.log("Document loaded");
+        document.querySelectorAll(".toggle-button").forEach(function(button) {
+            button.addEventListener("click", function() {
+                console.log("Toggle button clicked");
+                var index = this.id.replace("addItemButton", "");
+                var form = document.getElementById("addItemForm" + index);
+                if (form.style.display === "none") {
+                    form.style.display = "block";
+                } else {
+                    form.style.display = "none";
+                }
+            });
+        });
+    });
+    document.getElementById("create-content-toggle").addEventListener("click", function() {
+            console.log("Create content toggle clicked");
+            var form = document.getElementById("create-content-form");
+            if (form.style.display === "none") {
+                form.style.display = "block";
+            } else {
+                form.style.display = "none";
+            }
+        });
+</script>
+
+{% endblock %}

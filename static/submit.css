@@ -1,0 +1,78 @@
+.submit-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    margin-bottom: 10px;
+}
+
+input[type="file"] {
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+.file-label {
+    display: inline-block;
+    border-radius: 5px; /* Button border radius */
+    cursor: pointer; /* Show pointer cursor on hover */
+}
+
+.file-label i {
+    margin-right: 5px; /* Add some space between the icon and text */
+}
+
+.file-input {
+    border: 2px dashed #007bff;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    text-align: center; /* Center its content horizontally */
+}
+
+input[type="file"] {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    display: block;
+    margin: auto; /* Center the input horizontally and vertically */
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    border: none; /* Remove the border */
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover {
+    background-color: #b3b3b3 ; /* Change the background color on hover */
+    color: white;
+}

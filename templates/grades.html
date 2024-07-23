@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Grades{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='grades.css') }}">
+<div class="grades-container">
+    <div class="top">
+        <h1>{{ title[0] }}</h1>    
+        <a href="{{ url_for('course_container', ccode=course_code) }}" {% if 'course-container' in request.path %} class="active" {% endif %}>Course</a>
+        <a href="{{ url_for('retrieve_members', code=course_code) }}" {% if 'retrieve-members' in request.path %} class="active" {% endif %}>Members</a>
+        <a href="{{ url_for('forums', ccode=course_code) }}" {% if 'forums' in request.path %} class="active" {% endif %}>Forums</a>
+        <a href="{{ url_for('getGrade', cc=ccourse_code) }}" {% if 'grade' in request.path %} class="active" {% endif %}>Grades</a>
+        <hr class="horizontal-line">
+    </div>
+    <h2>Grades</h2>
+    {% if user_type == 'Student' %}
+    <table>
+            <thead>
+                <tr>
+                    <th>Assignment Name</th> 
+                    <th>Submission Status</th>
+                    <th>Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for assignment in assignments %}
+                    <tr>                        
+                        <td>
+                            <a class="assignment-link" href="{{ url_for('retrieve_assignment', assid=assignment['Assignment ID']) }}">
+                                {{ assignment['File'] }}
+                            </a>
+                        </td>
+                        <td>
+                            {% if assignment['Grade'] is none %}
+                                Submitted for grading
+                            {% else %}
+                                Graded
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if assignment['Grade'] is none %}
+                                Not graded
+                            {% else %}
+                                {{ assignment['Grade'] }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p>Average Grade: 
+            {% if average_grade is none %}
+                0</p>
+            {% else %}
+                {{ average_grade }}</p>
+            {% endif %}
+        <div class="sass">
+            <form action="{{ url_for('submitAssignment', cc=course_code) }}" method="GET">
+                <button type="submit" class="submit-button">Add Submission</button>
+            </form>
+        </div>            
+    {% elif user_type == 'Lecturer' %}
+        <div class="student-assignments">
+            {% for student_id, assignments in assignments_by_student.items() %}
+            <div class="student-section">
+                <div class="student-info">
+                    <p>Student ID: {{ student_id }}</p>
+                    <p>Name: {{ assignments[0]['First Name'] }} {{ assignments[0]['Last Name'] }}</p>
+                </div>
+                <div class="assignments">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>File</th>
+                                <th>Grade</th>
+                                <th>Submit Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for assignment in assignments %}
+                            <tr>
+                                <td>
+                                    <a class="assignment-link" href="{{ url_for('retrieve_assignment', assid=assignment['Assignment ID']) }}">
+                                        {{ assignment['File'] }}
+                                    </a>
+                                </td>
+                                <td>{{ assignment['Grade'] }}</td>
+                                <td>
+                                    <form action="{{ url_for('submitGrade', cc=course_code, assid=assignment['Assignment ID']) }}" method="POST">
+                                        <div class="flex">
+                                            <input id="grade" type="number" name="Grade" placeholder="Enter grade">
+                                            <button id="sub" type="submit">Submit</button>
+                                        </div>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <p>Average Grade:
+                        {% if average_grades[student_id] is none %}
+                        0</p>
+                    {% else %}
+                        {{ average_grades[student_id] }}</p>
+                    {% endif %}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}     
+</div>
+{% endblock %}

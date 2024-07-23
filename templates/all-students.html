@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}All Students{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='all-lec-stud.css') }}">
+<div class="container">
+    <h1>All Students</h1>
+    <input type="text" id="search-input" placeholder="Search for a student...">
+    <div class="pagination">
+        <ul>
+            {% if current_page > 1 %}
+                <li><a href="{{ url_for('all_students', page=current_page-1) }}">Previous</a></li>
+            {% endif %}
+            {% for page_num in range(1, num_pages+1) %}
+                <li {% if page_num == current_page %}class="now"{% endif %}><a href="{{ url_for('all_students', page=page_num) }}">{{ page_num }}</a></li>
+            {% endfor %}
+            {% if current_page < num_pages %}
+                <li><a href="{{ url_for('all_students', page=current_page+1) }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </div>    
+    <table>
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>First Name</th>
+                <th>Middle Name</th>
+                <th>Last Name</th>
+            </tr>
+        </thead>
+        <tbody id="student-list">
+            {% for student in students %}
+                <tr class="clickable-row" data-href="{{ url_for('student_detail', sid=student['StudentID']) }}">
+                    <td class="table-data">{{ student['StudentID'] }}</td>
+                    <td>{{ student['FirstName'] }}</td>
+                    <td>{{ student['MiddleName'] }}</td>
+                    <td>{{ student['LastName'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="total-students-row">
+        <p>Total Students: {{ num_stud.Total }}</p>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var searchInput = document.getElementById("search-input");
+        searchInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                performSearch();
+            }
+        });
+
+        function performSearch() {
+            var searchQuery = searchInput.value;
+            console.log("Search query:", searchQuery); // Debug statement
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/search?query=" + searchQuery, true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    console.log("Search results:", response); // Debug statement
+                    displaySearchResults(response);
+                }
+            };
+            xhr.send();
+        }
+
+        function displaySearchResults(results) {
+            var tableBody = document.querySelector("#student-list");
+            tableBody.innerHTML = ""; // Clear existing rows
+
+            results.forEach(function(student) {
+                // Create a new table row for each search result
+                var row = document.createElement("tr");
+                row.classList.add("clickable-row");
+
+                // Construct the URL for the student detail page
+                var studentDetailURL = "/student-detail/" + student.StudentID; // Adjust this line according to how you retrieve the student's ID
+                row.setAttribute("data-href", studentDetailURL);
+
+                // Create table cells for each property of the student
+                var studentIDCell = document.createElement("td");
+                studentIDCell.textContent = student.StudentID; // Adjust this line according to how you retrieve the student's ID
+                var firstNameCell = document.createElement("td");
+                firstNameCell.textContent = student.FirstName;
+                var middleNameCell = document.createElement("td");
+                middleNameCell.textContent = student.MiddleName;
+                var lastNameCell = document.createElement("td");
+                lastNameCell.textContent = student.LastName;
+
+                // Append the cells to the row
+                row.appendChild(studentIDCell);
+                row.appendChild(firstNameCell);
+                row.appendChild(middleNameCell);
+                row.appendChild(lastNameCell);
+
+                // Append the row to the table body
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Attach event listener at the document level for click events on rows
+        var tableBody = document.getElementById("student-list");
+
+        // Attach event listener to the table body for click events on rows
+        tableBody.addEventListener("click", function(event) {
+            var target = event.target;
+
+            // Traverse up the DOM hierarchy to find the closest clickable row
+            while (target && !target.classList.contains("clickable-row")) {
+                target = target.parentNode;
+            }
+
+            // If a clickable row is found, extract the URL and navigate
+            if (target && target.classList.contains("clickable-row")) {
+                var url = target.getAttribute("data-href");
+                if (url) {
+                    window.location.href = url;
+                }
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}

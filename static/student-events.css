@@ -1,0 +1,60 @@
+.student-events {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.event-list {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px; 
+    margin: auto; /* Center horizontally */
+    margin-top: 20px;
+}
+
+.event-list h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.course {
+    margin-bottom: 5px;
+    color: #6c757d; /* Text color for course details */
+}
+
+.event-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.event-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc; /* Add border between events */
+}
+
+.event-list li:last-child {
+    padding-top: 0;
+    padding-bottom: 0; 
+    border-bottom: none;
+}
+
+.event-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.due-date {
+    color: #6c757d; /* Text color for due date */
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+p {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 0; /* Remove bottom margin for consistency */
+}
+

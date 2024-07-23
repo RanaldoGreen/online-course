@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Home{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin-home.css') }}">
+<div class="admin-home">
+    <div class="welcome-section">
+        <h1>Welcome, <span id="adminName">{{ admin_name }}</span></h1>
+    </div>
+    <div class="links">
+        <ul>
+            <li><a href="{{ url_for('all_students') }}">All Students</a></li>
+            <li><a href="{{ url_for('all_lecturers') }}">All Lecturers</a></li>
+            <li><a href="{{ url_for('get_all_courses') }}">All Courses</a></li>
+            <li>
+                <div class="reports-section">
+                    <div class="custom-select" onclick="toggleDropdown()">
+                        <div class="select-selected">
+                            <span>Reports</span>
+                        </div>
+                        <div class="select-items">
+                            <div onclick="redirectToReport('report1')">Report1</div>
+                            <div onclick="redirectToReport('report2')">Report2</div>
+                            <div onclick="redirectToReport('report3')">Report3</div>
+                            <div onclick="redirectToReport('report4')">Report4</div>
+                            <div onclick="redirectToReport('report5')">Report5</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="forms-container">
+        <div class="form-wrapper create-course-form">
+            <div class="create-button">
+                <h2><a href="#" id="create-course-button"><i class="fas fa-plus"></i> Add Course</a></h2>
+            </div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category.startswith('create-course') %}
+                            <div class="alert {% if category.endswith('-success') %}alert-success{% elif category.endswith('-error') %}alert-error{% endif %}">
+                                {{ message }}
+                            </div><br>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form id="createCourseForm" method="post" action="/create-course">
+                <label for="course_code">Course Code</label>
+                <input type="text" id="course_code" name="course_code" required>
+                
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required>
+                
+                <label for="credits">Credits</label>
+                <input type="number" id="credits" name="credits" required>
+                
+                <!-- Hidden submit button -->
+                <button type="submit" id="submit-create-course" style="display: none;"></button>
+            </form>
+        </div>
+        <div class="form-wrapper assign-lecturer-form">
+            <div class="assign-button">
+                <h2><a href="#" id="assign-lecturer-button"><i class="fas fa-user-plus"></i> Assign Lecturer</a></h2>
+            </div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category.startswith('assign-lecturer') %}
+                            <div class="alert {% if category.endswith('-success') %}alert-success{% elif category.endswith('-error') %}alert-error{% endif %}">
+                                {{ message }}
+                            </div><br>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form id="assignLecturerForm" action="{{ url_for('assignLecturer') }}" method="post">
+                <label for="lecturer_id">Lecturer ID:</label>
+                <input type="text" id="lecturer_id" name="lecturer_id" required><br>
+                <label for="course_code">Course Code:</label>
+                <input type="text" id="course_code" name="course_code" required><br>
+                <!-- Hidden submit button -->
+                <button type="submit" id="submit-assign-lecturer" style="display: none;"></button>
+            </form>
+        </div>
+    </div>
+    <div class="search-student-event-form">
+        <h3>Search for Student Event</h3>
+        <form id="retrieveEventsForm" action="/retrieve-sevent" method="post">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category.startswith('search-student-event') %}
+                            <div class="alert {% if category.endswith('-error') %}alert-error{% endif %}">
+                                {{ message }}
+                            </div><br>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <div class="flexi">
+                <input type="text" id="student_id" name="student_id" placeholder="Enter Student ID" required>
+                <input type="date" id="selected_date" name="selected_date" required>
+            </div>
+            <button id="btu" type="submit">Retrieve Events</button>
+        </form>
+    </div>      
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the "Add Course" button element
+        var addButton = document.getElementById("create-course-button");
+        
+        // Add click event listener to the button
+        addButton.addEventListener("click", function(event) {
+            // Prevent the default action of the link (i.e., going to another page)
+            event.preventDefault();
+            
+            // Submit the create course form
+            document.getElementById("createCourseForm").submit();
+        });
+
+        // Get the "Assign Lecturer" button element
+        var assignButton = document.getElementById("assign-lecturer-button");
+        
+        // Add click event listener to the button
+        assignButton.addEventListener("click", function(event) {
+            // Prevent the default action of the link (i.e., going to another page)
+            event.preventDefault();
+            
+            // Submit the assign lecturer form
+            document.getElementById("assignLecturerForm").submit();
+        });
+    });
+
+    function toggleDropdown() {
+        var dropdown = document.querySelector(".select-items");
+        if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+        } else {
+        dropdown.style.display = "none";
+        }
+    }
+    function redirectToReport(reportName) {
+        window.location.href = "/" + reportName;
+    }
+</script>
+
+{% endblock %}

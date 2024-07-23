@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}All Courses{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='all-courses.css') }}">
+<div class="contain">
+    <h1>All Courses</h1>
+
+    <input type="text" id="search-input" placeholder="Search for a course..."><br>
+
+    <div id="course-list">
+        {% for course in courses %}
+            <div class="course-card">
+                {% if user_type == 'Admin' %}
+                <div onclick="window.location.href='{{ url_for('course_detail', ccode=course['Course Code']) }}';">
+                {% endif %}
+                    <p class="course-title">{{ course['Title'] }}</p>
+                    
+                    <div class="ccc">
+                        <p class="course-code">Course Code: {{ course['Course Code'] }}</p>
+                        <p class="course-credits">Credits: {{ course['Credits'] }}</p>
+                    </div>
+                {% if user_type == 'Admin' %}
+                </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>    
+
+    <div class="total-courses">
+        <p>Total Courses: {{ num_courses }}</p>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the input field and attach an event listener for input
+        var searchInput = document.getElementById("search-input");
+        searchInput.addEventListener("input", function() {
+            var searchTerms = searchInput.value.toLowerCase().split(" ");
+    
+            // Get all course cards
+            var courseCards = document.querySelectorAll(".course-card");
+    
+            // Loop through each course card
+            courseCards.forEach(function(card) {
+                var courseData = card.textContent.toLowerCase();
+                var matchesAllTerms = true;
+    
+                // Check if the card contains all search terms
+                searchTerms.forEach(function(term) {
+                    if (!courseData.includes(term)) {
+                        matchesAllTerms = false;
+                    }
+                });
+    
+                // Show or hide the card based on search results
+                if (matchesAllTerms) {
+                    card.style.display = "block"; // Show the card
+                } else {
+                    card.style.display = "none"; // Hide the card
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

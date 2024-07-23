@@ -1,0 +1,332 @@
+.forum-container {
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5px;
+    padding-bottom: 10px;
+    min-height: 83vh;
+}
+
+.forum-title {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.thread-list {
+    padding: 0;
+    list-style-type: none; /* Remove bullets */
+}
+
+.forum-link {
+    color: #721c24; /* Set the color to blue (adjust as needed) */
+    text-decoration: none; /* Remove underline */
+}
+
+.forum-link:hover {
+    text-decoration: underline;
+    text-decoration-color: #721c24;
+}
+
+.thread-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.thread-title {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.thread-message {
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+
+
+.thread-meta p, .reply-meta p{
+    margin: 2px 0;
+}
+
+.no-threads {
+    font-style: italic;
+    color: #777;
+}
+
+.tin{
+    display: flex;
+}
+
+
+.toggle-icon,
+.reply-icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.reply-icon {
+    margin-left: 5px; /* Adjust as needed */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Add a subtle shadow effect */
+    border-radius: 8px; /* Soften the edges with border-radius */
+}
+
+th, td {
+    border: 1px solid #dddddd; /* Change border color */
+    padding: 12px; /* Increase padding for better spacing */
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.fc{
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5px;
+    padding-bottom: 30px;
+    min-height: 80vh;
+}
+
+.top h1 {
+    padding-top: 20px;
+    margin-top: 20px; /* Adjust the top margin to create space */
+}
+
+.top a{
+    margin-right: 10px;
+}
+
+h2{
+    padding: 0;
+}
+
+.active {
+    text-decoration: underline;
+    text-decoration-color: #721c24;
+}
+
+#toggle-create-forum, #toggle-create-thread{
+    cursor: pointer;
+    padding: 0;
+    padding-bottom: 10px;
+}
+
+#create-forum-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    max-width: 300px; 
+    margin: 0 auto;
+}
+
+/* Input field style */
+#forumName,
+#description {
+    padding: 10px;
+    border: 1px solid #007bff; /* Blue border */
+    border-radius: 5px;
+    margin-bottom: 10px;
+    width: 100%; /* Occupy full width of the form */
+    box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+/* Create button style */
+#forumSubmit {
+    padding: 10px 20px;
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; /* Occupy full width of the form */
+    box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+  
+  /* Hover effect for button */
+  #forumSubmit:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+
+
+.fl{
+    display: flex;
+}
+
+.reply-form-container{
+    padding-top: 7px;
+}
+
+.somn{
+    display: flex;
+}
+
+.reply-icon {
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.reply-form-container textarea {
+    width: 100%;
+    padding: 1px; /* Increase padding for inputs */
+    border: none; /* Remove default input border */
+    border-bottom: 1px solid #ccc; /* Add underline style */
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease; /* Smooth transition for input field border color */
+}
+
+.reply-form-container textarea:focus {
+    border-color: #007bff; /* Change border color on focus */
+}
+
+textarea::placeholder, input::placeholder{
+    color: #721c24;
+    font-family: 'Didact Gothic', sans-serif;
+    padding-top: 10px;
+
+}
+
+
+.create-thread-container {
+    position: relative;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow */
+}
+
+.create-thread-form {
+    display: none;
+    margin-top: 20px; /* Add margin between the icon and the form */
+}
+
+#toggle-create-thread {
+    cursor: pointer;
+    padding: 10px;
+    font-size: 16px;
+}
+.input-container {
+    text-align: center; /* Center-align the contents */
+}
+
+#title,
+#message {
+    display: block; /* Keep them as block-level elements */
+    width: calc(100% - 22px); /* Set width to occupy almost the full width of the container with spacing */
+    padding: 10px;
+    margin: 10px auto; /* Center-align and add spacing between elements */
+    border-radius: 5px;
+    box-sizing: border-box; /* Include padding and border in width calculation */
+    border: none;
+    border-bottom: 1px solid #ccc; /* Add bottom border */
+}
+
+#title::placeholder,
+#message::placeholder, #reply_message::placeholder {
+    color: #ccc; /* Change placeholder text color */
+    font-style: italic; /* Italicize placeholder text */
+}
+
+#ts {
+    display: block; /* Keep it as a block-level element */
+    width: calc(100% - 22px); /* Set width to occupy almost the full width of the container with spacing */
+    padding: 10px;
+    margin: 10px auto; /* Center-align and add spacing between elements */
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Add transition for hover effect */
+}
+
+#ts:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.reply-list ul, .thread-list ul{
+    list-style: none;
+}
+
+.thread-message span, .reply-message span{
+    font-style: italic;
+}
+
+.reply-message{
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.bt{
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    color: #721c24;
+    padding-top: 10px;
+}
+
+
+.create-forum-container {
+    position: relative;
+}
+
+.create-forum-form {
+    position: absolute;
+    top: calc(100% + 10px); /* Position the form below the icon */
+    left: 0;
+    display: none;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+
+.toggle-create-forum {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.toggle-create-forum i {
+    margin-right: 5px; /* Adjust the spacing between the icon and the text if needed */
+}
+
+.create-forum-container {
+    position: relative;
+}
+
+.create-forum-form {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    display: none;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.reply-date, .thread-date{
+    font-size: 12px;
+}
+
+#course-name h2 {
+    font-size: 24px; /* Adjust font size as needed */
+    color: #333; /* Adjust color as needed */
+}

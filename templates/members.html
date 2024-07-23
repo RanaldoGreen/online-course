@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Members{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='members.css') }}">
+
+<div class="members-container">
+    <h1>{{ data.course_name }}</h1>
+    {% if user_type == 'Lecturer' or user_type == 'Student' %}
+        <div class="top">
+            <a href="{{ url_for('course_container', ccode=ccode) }}" {% if 'course-container' in request.path %} class="active" {% endif %}>Course</a>
+            <a href="{{ url_for('retrieve_members', code=ccode) }}" {% if 'retrieve-members' in request.path %} class="active" {% endif %}>Members</a>
+            <a href="{{ url_for('forums', ccode=ccode) }}" {% if 'forums' in request.path %} class="active" {% endif %}>Forums</a>
+            <a href="{{ url_for('getGrade', cc=ccode) }}" {% if 'grade' in request.path %} class="active" {% endif %}>Grades</a>
+        </div>
+    {% endif %}
+    <hr class="horizontal-line">
+
+    <h2>Users Enrolled</h2>
+    <!-- Search bar -->
+    <input type="text" id="search-input" placeholder="Search members..." style="margin: 0 auto; display: block;">
+
+    <div id="lecturers">
+        <h3>Lecturer</h3>
+        <ul>
+            {% for lecturer in data.lecturers %}
+                <li>{{ lecturer["First Name"] }} {{ lecturer["Middle Name"] }} {{ lecturer["Last Name"] }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div id="students">
+        <h3>Students</h3>
+        <ul>
+            {% for student in data.students %}
+                <li>{{ student["First Name"] }} {{ student["Middle Name"] }} {{ student["Last Name"] }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="total-members">
+        <p>Total Members: {{ data.total_members }}</p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the input field and attach an event listener for input
+        var searchInput = document.getElementById("search-input");
+        searchInput.addEventListener("input", function() {
+            var searchTerms = searchInput.value.toLowerCase().split(" ");
+    
+            // Get all member list items
+            var memberItems = document.querySelectorAll("#lecturers li, #students li");
+    
+            // Loop through each member item
+            memberItems.forEach(function(item) {
+                var memberData = item.textContent.toLowerCase();
+                var matchesAllTerms = true;
+    
+                // Check if the item contains all search terms
+                searchTerms.forEach(function(term) {
+                    if (!memberData.includes(term)) {
+                        matchesAllTerms = false;
+                    }
+                });
+    
+                // Show or hide the item based on search results
+                if (matchesAllTerms) {
+                    item.style.display = "block"; // Show the item
+                } else {
+                    item.style.display = "none"; // Hide the item
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

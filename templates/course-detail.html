@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ course['Title'] }} - Course Detail{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='lec-stud-detail.css') }}">
+<div class="card">
+    <h2>{{ course['Title'] }}</h2>
+    <p><strong>{{ course['Lecturer'] }}</strong></p>
+    <br>
+    <div class="item-links">
+        <a href="{{ url_for('retrieve_content', ccode=course['Course Code']) }}" class="course">
+            <p>Content Items</p>
+            <p>{{ course['Number of Content'] }}</p>
+        </a>
+        <a href="{{ url_for('events', ccode=course['Course Code']) }}" class="course">
+            <p>Events</p>
+            <p>{{ course['Number of Events'] }}</p>
+        </a>
+        <a href="{{ url_for('forums', ccode=course['Course Code']) }}" class="course">
+            <p>Forums</p>
+            <p>{{ course['Number of Forums'] }}</p>
+        </a>
+        <a href="{{ url_for('retrieve_members', code=course['Course Code']) }}" class="course">
+            <p>Members</p>
+            <p>{{ course['Total Members'] }}</p>
+        </a>
+    </div>
+</div>
+{% endblock %}

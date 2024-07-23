@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Report 1{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='reports.css') }}">
+<div class="report-container">
+    <h1>Courses with 50 or More Students</h1>
+    <div class="report-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Course Code</th>
+                    <th>Course Title</th>
+                    <th>Number of Students</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in report_data %}
+                <tr>
+                    <td>{{ entry["Course Code"] }}</td>
+                    <td>{{ entry["Title"] }}</td>
+                    <td>{{ entry["Number of Students"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <p>Total Courses: {{ total_courses }}</p>
+</div>
+{% endblock %}
